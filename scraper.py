@@ -20,3 +20,8 @@ for i in range(PAGES):
     r = requests.get(url, headers = HEADERS, params = params)
     data = r.json
 
+    posts = data["data"]["list"]
+    for post in posts:
+        d = post["data"]
+        title = d["title"]
+        url = d.get("url_of_content", "")
