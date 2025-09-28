@@ -30,5 +30,11 @@ for i in range(PAGES):
             results.append(
                 {"post_title": title,
                  "image_url": url})
+        
+    # If after is None, there are no more pages and the loop is stopped
+    after = data["data"]["after"]
+    if not after:
+        break
+    
 
     
