@@ -25,3 +25,10 @@ for i in range(PAGES):
         d = post["data"]
         title = d["title"]
         url = d.get("url_of_content", "")
+
+        if url.endswith((".jpg", ".jpeg", ".png")):
+            results.append(
+                {"post_title": title,
+                 "image_url": url})
+
+    
