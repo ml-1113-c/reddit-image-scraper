@@ -1,6 +1,5 @@
 import requests
 import json
-import time
 
 SUBREDDIT = "malaysia"
 PAGES = 10
@@ -18,13 +17,13 @@ for i in range(PAGES):
         params["after"] = after
 
     r = requests.get(url, headers = HEADERS, params = params)
-    data = r.json
+    data = r.json()
 
-    posts = data["data"]["list"]
+    posts = data["data"]["children"]
     for post in posts:
         d = post["data"]
         title = d["title"]
-        url = d.get("url_of_content", "")
+        url = d.get("url_overridden_by_dest", "")
 
         if url.endswith((".jpg", ".jpeg", ".png")):
             results.append(
@@ -35,6 +34,12 @@ for i in range(PAGES):
     after = data["data"]["after"]
     if not after:
         break
-    
+
+with open(OUTPUT_FILE, "w", encoding = "utf-8") as f:
+    json.dump(results, f, indent = 2) 
+
+print(f"Saved {len(results)} posts to {OUTPUT_FILE}")
+
+
 
     
